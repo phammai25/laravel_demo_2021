@@ -19,12 +19,13 @@ class SocialController extends Controller
         return redirect()->to('/admin');
     }
     function createUser($getInfo,$provider){
-        $user = User::where('id', $getInfo->id)->first();
+        $user = User::where('provider_id', $getInfo->id)->first();
         if (!$user) {
             $user = User::create([
                 'first_name'     => $getInfo->name,
-                'email'    => $getInfo->email,
-                'password' => '123456Aa@'
+                'email'    => $getInfo->email ? $getInfo->email : 'demologinFB@gmail.com' ,
+                'password' => '123456Aa@',
+                'provider_id' => $getInfo->id
             ]);
             if($user){
                 $insert_user_meta = UserMeta::create([
