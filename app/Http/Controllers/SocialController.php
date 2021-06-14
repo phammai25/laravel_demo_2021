@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Validator,Redirect,Response,File;
 use Socialite;
 use App\Models\User;
+use App\Models\UserMeta;
 class SocialController extends Controller
 {
     public function redirect($provider)
@@ -12,22 +13,26 @@ class SocialController extends Controller
     }
     public function callback($provider)
     {
-//        $getInfo = Socialite::driver($provider)->user();
-//        $user = $this->createUser($getInfo,$provider);
-//        auth()->login($user);
-//        return redirect()->to('/home');
-
-        Socialite::driver($provider)->redirect();
+        $getInfo = Socialite::driver($provider)->stateless()->user();
+        $user = $this->createUser($getInfo,$provider);
+        auth()->login($user);
+        return redirect()->to('/admin');
     }
     function createUser($getInfo,$provider){
-        $user = User::where('provider_id', $getInfo->id)->first();
+        $user = User::where('id', $getInfo->id)->first();
         if (!$user) {
             $user = User::create([
-                'name'     => $getInfo->name,
+                'first_name'     => $getInfo->name,
                 'email'    => $getInfo->email,
-                'provider' => $provider,
-                'provider_id' => $getInfo->id
+                'password' => '123456Aa@'
             ]);
+            if($user){
+                $insert_user_meta = UserMeta::create([
+                   'user_id' => $user->id,
+                   'sso_id' => $getInfo->token,
+                   'avatar' => $getInfo->avatar
+                ]);
+            }
         }
         return $user;
     }

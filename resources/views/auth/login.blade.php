@@ -50,6 +50,11 @@
                 <a href="{{ url('/login/facebook') }}" class="btn btn-primary"><i class="fa fa-facebook"></i> Facebook Login</a>
             </div>
         </div>
+        <div class="form-group row mb-0">
+            <div class="col-md-8 offset-md-4">
+                <a href="{{ url('/login/google') }}" class="btn btn-primary"><i class="fa fa-facebook"></i> Google Login</a>
+            </div>
+        </div>
 
     </x-jet-authentication-card>
 </x-guest-layout>
