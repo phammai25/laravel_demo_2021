@@ -177,6 +177,12 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Modules\ServiceProvider::class,
+        Modules\User\ModuleProvider::class,
+        Modules\User\RouteServiceProvider::class,
+        Modules\Blog\ModuleProvider::class,
+        Modules\Blog\RouteServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 

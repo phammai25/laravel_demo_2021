@@ -12,7 +12,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $admin = Auth::user();
+        $admin = Auth::user()->id;
         return view('admin')->with('admin',$admin);
     }
 }
